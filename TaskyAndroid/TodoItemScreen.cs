@@ -1,9 +1,12 @@
+using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using Microsoft.AppCenter.Analytics;
 using Tasky.PortableLibrary;
 using TaskyAndroid;
+using TaskyPortableLibrary;
 
 namespace TaskyAndroid.Screens 
 {
@@ -43,7 +46,7 @@ namespace TaskyAndroid.Screens
 			cancelDeleteButton = FindViewById<Button>(Resource.Id.CancelDeleteButton);
 			
 			// set the cancel delete based on whether or not it's an existing task
-			cancelDeleteButton.Text = (task.ID == 0 ? "Cancel" : "Delete");
+			cancelDeleteButton.Text = (task.ID == 0 ? "Cancel,crash" : "Delete,crash");
 			
 			nameTextEdit.Text = task.Name; 
 			notesTextEdit.Text = task.Notes;
@@ -61,11 +64,14 @@ namespace TaskyAndroid.Screens
 			task.Done = doneCheckbox.Checked;
 
 			TaskyApp.Current.TodoManager.SaveTask(task);
+            Analytics.TrackEvent("Saved new TodoItem", AnalyticsHelper.ConstructProperties(task));
 			Finish();
 		}
 		
 		void CancelDelete()
 		{
+		    TodoItem nullTodoItem = null;
+		    string name = nullTodoItem.Name; // CRASH !
 			if (task.ID != 0) {
 				TaskyApp.Current.TodoManager.DeleteTask(task.ID);
 			}

@@ -3,6 +3,9 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Tasky.PortableLibrary;
 using TaskyAndroid;
 using TaskyAndroid.ApplicationLayer;
@@ -46,6 +49,8 @@ namespace TaskyAndroid.Screens
 					StartActivity (taskDetails);
 				};
 			}
+
+            AppCenter.Start("f4fcd147-c56a-4b49-a30e-7ea059ae1700", typeof(Analytics), typeof(Crashes));
 		}
 		
 		protected override void OnResume ()

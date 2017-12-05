@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AppCenter.Analytics;
 using UIKit;
 using MonoTouch.Dialog;
 using Tasky.PortableLibrary;
 using Tasky.ApplicationLayer;
+using TaskyPortableLibrary;
 
 namespace Tasky.Screens {
 
@@ -48,10 +50,13 @@ namespace Tasky.Screens {
 			// TODO: show the completion status in the UI
 			currentItem.Done = taskDialog.Done;
 			AppDelegate.Current.TodoManager.SaveTask(currentItem);
+		    Analytics.TrackEvent("Saved new TodoItem", AnalyticsHelper.ConstructProperties(currentItem));
 			NavigationController.PopViewController (true);
 		}
 		public void DeleteTask ()
 		{
+		    TodoItem nullTodoItem = null;
+		    string name = nullTodoItem.Name; // CRASH !
 			if (currentItem.ID >= 0)
 				AppDelegate.Current.TodoManager.DeleteTask (currentItem.ID);
 			NavigationController.PopViewController (true);

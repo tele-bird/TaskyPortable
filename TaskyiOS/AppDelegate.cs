@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Foundation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using UIKit;
 using SQLite;
 using Tasky.PortableLibrary;
@@ -64,6 +67,8 @@ namespace Tasky
 			navController.PushViewController(homeViewController, false);
 			window.RootViewController = navController;
 			window.MakeKeyAndVisible ();
+
+            AppCenter.Start("92710b39-ec89-430b-8f63-a1c70752362a", typeof(Analytics), typeof(Crashes));
 			
 			return true;
 		}
