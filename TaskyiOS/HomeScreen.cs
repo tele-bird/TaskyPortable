@@ -23,7 +23,7 @@ namespace Tasky.Screens {
 		TodoItem currentItem;
 		DialogViewController detailsScreen;
          
-		public HomeScreen () : base (UITableViewStyle.Plain, null)
+		public HomeScreen () : base (UITableViewStyle.Plain, null) 
 		{
 			Initialize ();
 		}
